@@ -1,23 +1,23 @@
 import {useCallback, useEffect, useState} from "react";
 import {getData} from "../store/services/service";
 import MyList from "../components/listComponent";
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {bindActionCreators} from "redux";
 import {fetchData} from "../store/actions/list.actions";
 
 export default function SecondPage() {
-    const [searchValue, setSearchValue] = useState('');
     const dispatch = useDispatch();
-    const fetchRows = useCallback(
-        bindActionCreators(fetchData, dispatch),
-        [dispatch]
-    );
+    // const fetchRows = useCallback(
+    //     bindActionCreators(fetchData, dispatch),
+    //     [dispatch]
+    // );
+    const search = useSelector(state => state.second.search);
     useEffect(() => {
-        getData({search: searchValue}).then(res => {
-            fetchRows(res, "second");
+        getData({search: search}).then(res => {
+            dispatch(fetchData(res, "second"));
         });
-    }, [searchValue]);
+    }, [search]);
     return (
-        <MyList branch="second" setSearchValue={setSearchValue}/>
+        <MyList branch="second"/>
     )
 }

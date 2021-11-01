@@ -1,21 +1,24 @@
 import {useState} from "react";
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
+import {setSearch} from "../store/actions/list.actions";
 
-export default function MyList({branch, setSearchValue}) {
-    const [search, setSearch] = useState('');
+export default function MyList({branch}) {
+    const [searchText, setSearchText] = useState('');
     const data = useSelector(state => state[branch].rows);
     const onSearchChange = (event) => {
-        setSearch(event.target.value);
+        setSearchText(event.target.value);
     }
+    const dispatch = useDispatch();
 
     const onSearchKeyPress = (event) => {
         if (event.key === 'Enter') {
-            setSearchValue(search);
+            dispatch(setSearch(searchText, branch));
+            //setSearchValue(search);
         }
     }
     return (
         <div>
-            <input onChange={onSearchChange} onKeyPress={onSearchKeyPress} type="text" value={search}/>
+            <input onChange={onSearchChange} onKeyPress={onSearchKeyPress} type="text" value={searchText}/>
             <ul>
                 {data.map((item) => (
                     <li key={item.id}>{item.name}</li>

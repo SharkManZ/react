@@ -1,7 +1,8 @@
-import {FETCH_ROWS} from '../../actions/reducerConstants';
+import {FETCH_ROWS, SET_SEARCH} from '../../actions/reducerConstants';
 
 const defaultState = {
-    rows: []
+    rows: [],
+    search: ''
 }
 export default function listReducer(state = defaultState, action) {
     const {branch, type} = action;
@@ -10,6 +11,11 @@ export default function listReducer(state = defaultState, action) {
             return {
                 ...state,
                 rows: action.payload
+            }
+        case `${branch}/${SET_SEARCH}`:
+            return {
+                ...state,
+                search: action.payload
             }
         default:
             return state;
