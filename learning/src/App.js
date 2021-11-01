@@ -1,21 +1,12 @@
 import './App.css';
-import {useEffect, useState} from "react";
-import {getData} from "./services/service";
+import FirstPage from "./pages/first";
+import SecondPage from "./pages/second";
 
 function App() {
-    const [data, setData] = useState([]);
-    useEffect(() => {
-        getData().then(res => {
-            setData(res)
-        });
-    }, []);
     return (
         <div>
-            <ul>
-                {data.map((item) => (
-                    <li key={item.id}>{item.name}</li>
-                ))}
-            </ul>
+            <FirstPage/>
+            <SecondPage/>
         </div>
     );
 }
