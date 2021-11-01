@@ -1,8 +1,9 @@
 import {useState} from "react";
+import {useSelector} from "react-redux";
 
-export default function MyList({data, searchValue, setSearchValue}) {
+export default function MyList({branch, setSearchValue}) {
     const [search, setSearch] = useState('');
-
+    const data = useSelector(state => state[branch].rows);
     const onSearchChange = (event) => {
         setSearch(event.target.value);
     }
