@@ -1,9 +1,21 @@
 import './App.css';
+import {useEffect, useState} from "react";
+import {getData} from "./services/service";
 
 function App() {
+    const [data, setData] = useState([]);
+    useEffect(() => {
+        getData().then(res => {
+            setData(res)
+        });
+    }, []);
     return (
         <div>
-            <h1>text</h1>
+            <ul>
+                {data.map((item) => (
+                    <li key={item.id}>{item.name}</li>
+                ))}
+            </ul>
         </div>
     );
 }
